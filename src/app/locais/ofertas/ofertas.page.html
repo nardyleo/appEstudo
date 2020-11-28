@@ -5,5 +5,46 @@
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size = "12" size-sm="8">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title> {{ ofertas[0].titulo }} </ion-card-title>
+            <ion-card-subtitle>Preço promocional = {{ (ofertas[0].preco) | currency }} - 40%</ion-card-subtitle>
+          </ion-card-header>
+          <ion-img [src]="ofertas[0].imagemUrl"></ion-img>
+          <ion-card-content>
+            <p>{{ofertas[0].descricao}}</p>
+          </ion-card-content>
+          <div class="ion-text-center">
+            <ion-button 
+             fill="clear"
+             color="primary" 
+             [routerLink]="['/','locais','tabs','ofertas','ofertas[2].id']"
+            > Detalhe da oferta
+            </ion-button>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" text-center> 
+        <ion-list>
+          <ion-item *ngFor = "let oferta of ofertas.slice(1)" 
+          [routerLink]="['/','locais','tabs','ofertas','oferta.id']"
+          detail>
+            <ion-thumbnail slot ="start">
+              <ion-img [src]="oferta.imagemUrl"></ion-img>
+            </ion-thumbnail>
+            <ion-label> 
+              <h2>{{oferta.titulo}}</h2>
+              <p>{{oferta.descricao}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
