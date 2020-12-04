@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Ofertas</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button routerLink="/locais/tabs/ofertas/nova-oferta">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -21,7 +26,7 @@
             <ion-button 
              fill="clear"
              color="primary" 
-             [routerLink]="['/','locais','tabs','ofertas','ofertas[2].id']"
+             [routerLink]="['/','locais','tabs','ofertas',ofertas[0]?.id]"
             > Detalhe da oferta
             </ion-button>
           </div>
@@ -32,7 +37,7 @@
       <ion-col size="12" size-sm="8" offset-sm="2" text-center> 
         <ion-list>
           <ion-item *ngFor = "let oferta of ofertas.slice(1)" 
-          [routerLink]="['/','locais','tabs','ofertas','oferta.id']"
+          [routerLink]="['/','locais','tabs','ofertas',oferta?.id]"
           detail>
             <ion-thumbnail slot ="start">
               <ion-img [src]="oferta.imagemUrl"></ion-img>

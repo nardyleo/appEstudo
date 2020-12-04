@@ -34,5 +34,9 @@ export class LocaisService {
     return [...this._locais];
   }
 
+  getLocal(id: string){
+    return {...this._locais.find(p => p.id === id)};
+  }
+
   constructor() { }
 }
