@@ -25,7 +25,6 @@ export class EditarOfertaPage implements OnInit {
         return;
       }
       this.local = this.locaisService.getLocal(paramMap.get('idLocal'));
-      console.log(this.local);
     });
   }
 

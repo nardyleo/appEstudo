@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { Local } from '../../local.model';
+import { LocaisService } from '../../locais.service';
 
 @Component({
   selector: 'app-detalhe-local',
@@ -8,10 +10,22 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./detalhe-local.page.scss'],
 })
 export class DetalheLocalPage implements OnInit {
+  local: Local;
 
-  constructor(private router: Router,private navCtrl: NavController) { }
+  constructor(
+    private router: ActivatedRoute,
+    private navCtrl: NavController,
+    private locaisService: LocaisService) { }
 
   ngOnInit() {
+    this.router.paramMap.subscribe((paramMap) => {
+      if (!paramMap.has('detalhe-local')){
+        this.navCtrl.navigateBack('/locais/tabs/busca');
+        return;
+      }
+      this.local = this.locaisService.getLocal(paramMap.get('detalhe-local'));
+      console.log(this.local);
+    });  
   }
 
   voltarTelaInicial(){
