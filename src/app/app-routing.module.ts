@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -8,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'locais',
+    redirectTo: 'auth',
     pathMatch: 'full'
   },
   {
@@ -17,11 +18,13 @@ const routes: Routes = [
   },
   {
     path: 'locais',
-    loadChildren: () => import('./locais/locais.module').then( m => m.LocaisPageModule)
+    loadChildren: () => import('./locais/locais.module').then( m => m.LocaisPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'reservas',
-    loadChildren: () => import('./reservas/reservas.module').then( m => m.ReservasPageModule)
+    loadChildren: () => import('./reservas/reservas.module').then( m => m.ReservasPageModule),
+    canLoad: [AuthGuard]
   },
 ];
 

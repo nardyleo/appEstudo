@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   private _usarioAutenticado = false;
 
-  getUsuarioAutenticado(){
+  get usuarioAutenticado(){
     return this._usarioAutenticado;
   }
 
@@ -18,5 +18,6 @@ export class AuthService {
 
   logOut(){
     this._usarioAutenticado = false;
+    console.log(this.usuarioAutenticado);
   }
 }
