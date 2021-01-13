@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { DetalheLocalPageRoutingModule } from './detalhe-local-routing.module';
 
 import { DetalheLocalPage } from './detalhe-local.page';
+import { CriarReservaComponent } from '../../../reservas/criar-reserva/criar-reserva.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { DetalheLocalPage } from './detalhe-local.page';
     IonicModule,
     DetalheLocalPageRoutingModule
   ],
-  declarations: [DetalheLocalPage]
+  declarations: [DetalheLocalPage, CriarReservaComponent],
+  entryComponents:[CriarReservaComponent]
 })
 export class DetalheLocalPageModule {}

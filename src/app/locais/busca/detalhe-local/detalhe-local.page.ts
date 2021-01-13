@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { Local } from '../../local.model';
 import { LocaisService } from '../../locais.service';
+import { CriarReservaComponent } from 'src/app/reservas/criar-reserva/criar-reserva.component';
 
 @Component({
   selector: 'app-detalhe-local',
@@ -15,7 +16,8 @@ export class DetalheLocalPage implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private navCtrl: NavController,
-    private locaisService: LocaisService) { }
+    private locaisService: LocaisService,
+    private modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.router.paramMap.subscribe((paramMap) => {
@@ -33,6 +35,24 @@ export class DetalheLocalPage implements OnInit {
     // this.router.navigateByUrl('/locais/tabs/busca');
     this.navCtrl.navigateBack('/locais/tabs/busca');
     
+  }
+
+  reservarLocal(){
+    this.modalCtrl
+      .create({
+        component: CriarReservaComponent,
+        componentProps: {localSelecionado: this.local}
+       })
+      .then(modalEl => {
+        modalEl.present();
+        return modalEl.onDidDismiss();
+      })
+      .then(resultData => {
+        console.log(resultData.data, resultData.role);
+        if (resultData.role === 'confirmar') {
+          console.log('Reservado!');
+        }
+      })
   }
 
 }

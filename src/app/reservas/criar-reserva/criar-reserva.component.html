@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ localSelecionado.titulo }}</ion-title>
+    <ion-buttons slot ="primary" color="primary">
+      <ion-button (click)="onCancelar()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="ion-text-center">
+    <p>{{ localSelecionado.descricao}}</p>
+    <ion-button color="primary" (click)="reservarLocal()">Reservar</ion-button>
+  </div>
+</ion-content>
