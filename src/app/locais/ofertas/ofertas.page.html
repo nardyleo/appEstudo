@@ -39,17 +39,24 @@
     <ion-row>
       <ion-col size="12" size-sm="8" offset-sm="2" text-center> 
         <ion-list>
-          <ion-item *ngFor = "let oferta of ofertas.slice(1)" 
-          [routerLink]="['/','locais','tabs','ofertas',oferta?.id]"
-          detail>
-            <ion-thumbnail slot ="start">
-              <ion-img [src]="oferta.imagemUrl"></ion-img>
-            </ion-thumbnail>
-            <ion-label> 
-              <h2>{{oferta.titulo}}</h2>
-              <p>{{oferta.descricao}}</p>
-            </ion-label>
-          </ion-item>
+          <ion-item-sliding *ngFor = "let oferta of ofertas" #slidingItem >
+            <ion-item 
+            [routerLink]="['/','locais','tabs','ofertas',oferta?.id]"
+            detail>
+              <ion-thumbnail slot ="start">
+                <ion-img [src]="oferta.imagemUrl"></ion-img>
+              </ion-thumbnail>
+              <ion-label> 
+                <h2>{{oferta.titulo}}</h2>
+                <!-- <p>{{oferta.descricao}}</p> -->
+              </ion-label>
+            </ion-item>
+            <ion-item-options>
+              <ion-item-option color = "primary" (click)="onEditar(oferta.id, slidingItem)">
+                <ion-icon name="create" slot="icon-only"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
         </ion-list>
       </ion-col>
     </ion-row>

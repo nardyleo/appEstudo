@@ -9,11 +9,13 @@ import { LocaisService } from '../locais.service';
 })
 export class BuscaPage implements OnInit {
   locaisCarregados: Local[];
+  listedLocaisCarregados: Local[];
 
   constructor(private locaisService: LocaisService) { }
 
   ngOnInit() {
     this.locaisCarregados = this.locaisService.locais;
+    this.listedLocaisCarregados = this.locaisCarregados.slice(1);
   }
 
 }
