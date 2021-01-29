@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SegmentChangeEventDetail } from '@ionic/core';
+
 import { Local } from '../local.model';
 import { LocaisService } from '../locais.service';
 
@@ -16,6 +18,10 @@ export class BuscaPage implements OnInit {
   ngOnInit() {
     this.locaisCarregados = this.locaisService.locais;
     this.listedLocaisCarregados = this.locaisCarregados.slice(1);
+  }
+
+  onUpdateFiltro(evento: CustomEvent<SegmentChangeEventDetail>){
+    console.log(evento.detail);
   }
 
 }

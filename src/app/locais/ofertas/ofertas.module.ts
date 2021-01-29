@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { OfertasPageRoutingModule } from './ofertas-routing.module';
-
+import { ItemOfertaComponent } from './item-oferta/item-oferta.component';
 import { OfertasPage } from './ofertas.page';
 
 @NgModule({
@@ -15,6 +15,6 @@ import { OfertasPage } from './ofertas.page';
     IonicModule,
     OfertasPageRoutingModule
   ],
-  declarations: [OfertasPage]
+  declarations: [OfertasPage,ItemOfertaComponent]
 })
 export class OfertasPageModule {}
