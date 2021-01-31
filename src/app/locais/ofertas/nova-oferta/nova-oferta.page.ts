@@ -19,7 +19,7 @@ export class NovaOfertaPage implements OnInit {
       }),
       descricao: new FormControl(null,{
         updateOn: 'blur',
-        validators: [Validators.required,Validators.maxLength(180)]
+        validators: [Validators.required,Validators.maxLength(180),Validators.min(1)]
       }),
       preco: new FormControl(null,{
         updateOn: 'blur',
@@ -37,6 +37,9 @@ export class NovaOfertaPage implements OnInit {
   }
 
   criarOferta(){
+    if (!this.form.valid){
+      return;
+    }
     console.log(this.form);
   }
 }

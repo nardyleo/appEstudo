@@ -11,7 +11,73 @@
 
 <ion-content padding>
   <div class="ion-text-center">
-    <p>{{ localSelecionado.descricao}}</p>
-    <ion-button color="primary" (click)="reservarLocal()">Reservar</ion-button>
+    <form>
+      <ion-grid>
+        <ion-row>
+          <ion-col size-sm ="6" offset-sm="3">
+            <ion-item>
+              <ion-label position="floating"> Primeiro Nome</ion-label>
+              <ion-input type= "text" ngModel name="primeiro-nome" required></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-sm ="6" offset-sm="3">
+            <ion-item>
+              <ion-label position="floating"> Segundo Nome</ion-label>
+              <ion-input type= "text" ngModel name="segundo-nome" required></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-sm ="6" offset-sm="3">
+            <ion-item>
+              <ion-label position="floating"> Número de pessoas</ion-label>
+              <ion-select [ngModel]="'2'" name="numero-pessoas">
+                <ion-select-option value="1">1</ion-select-option>
+                <ion-select-option value="2">2</ion-select-option>
+                <ion-select-option value="3">3</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-sm ="3" offset-sm="3">
+            <ion-item>
+              <ion-label position="floating"> De: </ion-label>
+              <ion-datetime
+               display-format="DD MMM YYYY"
+               picker-format="DD MMM YYYY"
+               [min]=""
+               [max]=""
+               ngModel
+               name="data-de"
+               required
+               #dataInicioCtrl = "ngModel">
+              </ion-datetime>
+            </ion-item>
+          </ion-col>
+          <ion-col size-sm ="3">
+            <ion-item>
+              <ion-label position="floating"> Até: </ion-label>
+              <ion-datetime
+               display-format="DD MMM YYYY"
+               picker-format="DD MMM YYYY"
+               [min]="dataInicioCtrl.value"
+               [max]=""
+               ngModel
+               name="data-ate"
+               required>
+              </ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button type="submit" color="primary" expand="block">Reservar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
   </div>
 </ion-content>
