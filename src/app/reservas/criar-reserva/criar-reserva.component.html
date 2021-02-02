@@ -11,7 +11,7 @@
 
 <ion-content padding>
   <div class="ion-text-center">
-    <form>
+    <form (ngSubmit)="reservarLocal()" #f="ngForm">
       <ion-grid>
         <ion-row>
           <ion-col size-sm ="6" offset-sm="3">
@@ -48,9 +48,9 @@
               <ion-datetime
                display-format="DD MMM YYYY"
                picker-format="DD MMM YYYY"
-               [min]=""
-               [max]=""
-               ngModel
+               [min]="localSelecionado.disponivelDe.toISOString()"
+               [max]="localSelecionado.disponivelAte.toISOString()"
+               [ngModel] = "dataInicio"
                name="data-de"
                required
                #dataInicioCtrl = "ngModel">
@@ -64,8 +64,8 @@
                display-format="DD MMM YYYY"
                picker-format="DD MMM YYYY"
                [min]="dataInicioCtrl.value"
-               [max]=""
-               ngModel
+               [max]="localSelecionado.disponivelAte.toISOString()"
+               [ngModel]="dataFim"
                name="data-ate"
                required>
               </ion-datetime>
@@ -74,7 +74,11 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-button type="submit" color="primary" expand="block">Reservar</ion-button>
+            <ion-button type="submit"
+             color="primary"
+            expand="block"
+            [disabled]="!f.valid || !datasValidas()"
+            >Reservar</ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>

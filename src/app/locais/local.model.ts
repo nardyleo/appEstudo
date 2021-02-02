@@ -4,6 +4,8 @@ export class Local {
         public titulo: string,
         public descricao: string,
         public imagemUrl: string,
-        public preco: string,
+        public preco: number,
+        public disponivelDe: Date,
+        public disponivelAte: Date
     ){}
 }

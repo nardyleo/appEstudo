@@ -69,7 +69,7 @@ export class DetalheLocalPage implements OnInit {
     this.modalCtrl
       .create({
         component: CriarReservaComponent,
-        componentProps: {localSelecionado: this.local}
+        componentProps: {localSelecionado: this.local, modeSelecionado: mode}
        })
       .then(modalEl => {
         modalEl.present();
