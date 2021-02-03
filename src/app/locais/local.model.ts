@@ -6,6 +6,7 @@ export class Local {
         public imagemUrl: string,
         public preco: number,
         public disponivelDe: Date,
-        public disponivelAte: Date
+        public disponivelAte: Date,
+        public idUsuario: string
     ){}
 }

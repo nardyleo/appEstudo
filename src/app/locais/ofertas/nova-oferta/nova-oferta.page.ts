@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LocaisService } from '../../locais.service';
 
 @Component({
   selector: 'app-nova-oferta',
@@ -9,7 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class NovaOfertaPage implements OnInit {
   form: FormGroup;
 
-  constructor() { }
+  constructor(private locaisServico: LocaisService, private router: Router) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -40,6 +42,16 @@ export class NovaOfertaPage implements OnInit {
     if (!this.form.valid){
       return;
     }
-    console.log(this.form);
+    
+    this.locaisServico.addLocal(
+      this.form.value.titulo,
+      this.form.value.descricao,
+      +this.form.value.preco,
+      new Date(this.form.value.dataDe),
+      new Date(this.form.value.dataAte)
+    );
+
+    this.form.reset();
+    this.router.navigate(['/locais/tabs/ofertas']);
   }
 }
