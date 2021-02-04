@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Local } from '../../local.model';
 import { LocaisService } from '../../locais.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-oferecer-reservas',
   templateUrl: './oferecer-reservas.page.html',
   styleUrls: ['./oferecer-reservas.page.scss'],
 })
-export class OferecerReservasPage implements OnInit {
+export class OferecerReservasPage implements OnInit , OnDestroy {
   local: Local;
+  private localSub: Subscription;
 
   constructor(
     private router: ActivatedRoute,
@@ -25,11 +27,19 @@ export class OferecerReservasPage implements OnInit {
         this.navCtrl.navigateBack('/locais/tabs/ofertas');
         return;
       }
-      this.local = this.locaisService.getLocal(paramMap.get('idLocal'));
-      console.log(this.local);
+      this.localSub = this.locaisService.getLocal(paramMap.get('idLocal')).subscribe(local => {
+        this.local = local;
+      });
+      // console.log(this.local);
     });
-
   }
+
+  ngOnDestroy(){
+    if(this.localSub){
+      this.localSub.unsubscribe();
+    }
+  }
+
 
   voltarTelaInicial(){
     // console.log('oi');

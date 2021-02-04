@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { take , map} from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { Local } from './local.model';
 
@@ -6,8 +8,7 @@ import { Local } from './local.model';
   providedIn: 'root'
 })
 export class LocaisService {
-  private _locais: Local[] = [
-
+  private _locais = new BehaviorSubject<Local[]>([
   new Local(
     'l1',
     'Residência Ouro Preto',
@@ -38,14 +39,19 @@ export class LocaisService {
     new Date('2021-12-31'),
     'abc'
   )
-  ];
+  ]);
 
   get locais(){
-    return [...this._locais];
+    return this._locais.asObservable();
   }
 
   getLocal(id: string){
-    return {...this._locais.find(p => p.id === id)};
+    return this.locais.pipe(
+      take(1),
+      map(locais => {
+        return { ...locais.find(l => l.id === id)};
+      })
+    );
   }
 
   constructor(private authService: AuthService) { }
@@ -68,7 +74,8 @@ export class LocaisService {
       this.authService.userId
     );
 
-    this._locais.push(novoLocal);
-
+    this._locais.pipe(take(1)).subscribe(locais => {
+      this._locais.next(locais.concat(novoLocal));
+    })
   }
 }

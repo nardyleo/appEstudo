@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActionSheetController, ModalController, NavController } from '@ionic/angular';
 import { Local } from '../../local.model';
 import { LocaisService } from '../../locais.service';
 import { CriarReservaComponent } from 'src/app/reservas/criar-reserva/criar-reserva.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-detalhe-local',
   templateUrl: './detalhe-local.page.html',
   styleUrls: ['./detalhe-local.page.scss'],
 })
-export class DetalheLocalPage implements OnInit {
+export class DetalheLocalPage implements OnInit , OnDestroy {
   local: Local;
+  private locaisSub: Subscription;
 
   constructor(
     private router: ActivatedRoute,
@@ -26,9 +28,18 @@ export class DetalheLocalPage implements OnInit {
         this.navCtrl.navigateBack('/locais/tabs/busca');
         return;
       }
-      this.local = this.locaisService.getLocal(paramMap.get('detalhe-local'));
-      console.log(this.local);
+    
+    this.locaisSub = this.locaisService.getLocal(paramMap.get('detalhe-local')).subscribe(local => {
+       this.local = local;
+     });
+      
     });  
+  }
+
+  ngOnDestroy(){
+    if(this.locaisSub){
+      this.locaisSub.unsubscribe();
+    }
   }
 
   voltarTelaInicial(){
